@@ -11,10 +11,51 @@ namespace HelloWorld
                 if (Screen_1 == -1) {
                     mainLoop = false;
                 }
-                else if (Screen_1 == 0) {}
-                else if (Screen_1 == 1) {}
-                    
+                else if (Screen_1 == 0) {
+                    string accountType = Login();
+                    if (accountType == "Klant"){Klant();}
+                    else if (accountType == "Werknemer"){Werknemer();}
+                    else if (accountType == "Admin"){Admin();}
+                    }
+                else if (Screen_1 == 1) {
+                    for (bool gastLoop = true; gastLoop;){
+                    int screen_Gast_Start = Options.listOfChoice(true, "Login\n", "Registreren\n", "Reserveren\n", "Contact\n");
+                    if (screen_Gast_Start == -1) {
+                        mainLoop = false;
+                        gastLoop = false;
+                    }
+                    else if (screen_Gast_Start == 0){
+                        string accountType = Login();
+                        if (accountType == "Klant"){Klant();}
+                        else if (accountType == "Werknemer"){Werknemer();}
+                        else if (accountType == "Admin"){Admin();}
+                    }
+                    else if (screen_Gast_Start == 1){}
+                    else if (screen_Gast_Start == 2){}
+                    else if (screen_Gast_Start == 3){}
+                    }
+                }
             }
+        }
+        public static string Login() {
+            string gebruikersNaam;
+            string gebruikersWachtwoord;
+            Console.Clear();
+            Console.WriteLine("Gebruikers naam");
+            gebruikersNaam = Console.ReadLine();
+            Console.WriteLine("Gebruikers wachtwoord");
+            gebruikersWachtwoord = Console.ReadLine();
+            // Json file
+            return "Klant"; // Return index of Dictionary with accounttype
+        }
+        public static void Klant() {
+            int screen_Klant_Start = Options.listOfChoice(true, "Logout\n", "Mijn informatie\n", "Reserveren\n", "Contact\n");
+        }
+        public static void Werknemer() {
+            int screen_Werknemer_Start = Options.listOfChoice(true, "Logout\n", "Menu\n", "Reserveren\n", "Contact\n");
+        }
+        public static void Admin() {
+            int screen_Admin_Start = Options.listOfChoice(true, "Logout\n", "Accounts\n", "Menu\n", "Contact\n");
         }
     }
     class Options
