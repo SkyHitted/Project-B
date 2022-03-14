@@ -5,49 +5,64 @@ namespace HelloWorld
     class Program
     {
         public static void Main() {
-            int selectedClass = ConsoleHelper.MultipleChoice(true, "Login", "Regristeren", "Reserveren", "Contact informatie");
-            // bool keepLooping = true;
-            // int itemSelected;
-            // while (keepLooping){
-            //     Console.WriteLine("Type de nummer van de volgende onderdelen:");
-            //     Console.ForegroundColor = ConsoleColor.Blue;
-            //     Console.WriteLine("[1] Login Scherm");
-            //     Console.ForegroundColor = ConsoleColor.White;
-            //     Console.WriteLine("[2] Reserveren");
-            //     Console.WriteLine("[3] Contact informatie");
-            //     Console.WriteLine("[0]");
-            //     var Scherm = Console.ReadLine();
-            //     if (Scherm == "1") {
-            //         // while login true
-            //           //  Console.WriteLine("Login");
-            //             var tmpScherm = Console.ReadLine();
-            //             if (tmpScherm == "1"){
-            //                 Console.WriteLine("kies de type account");
-            //                 if (Console.ReadLine() == "1"){
-            //                     Console.WriteLine("U wilt een ");
-            //                 }
-            //             else if (tmpScherm == "2"){
-            //                 Console.WriteLine("kies de type account");
-            //             }
-            //         } 
-            //     }
-            //     else if (Scherm == "2") {
-            //         Console.WriteLine("Reserveren");
-            //     }
-            //     else if (Scherm == "3") {
-            //         Console.WriteLine("Contact");
-            //     }
-            //     else if (Scherm == "0") {
-            //         return;
-            //     }
-            // }
+            bool mainLoop = true;
+            while (mainLoop){
+                int Screen_1 = Options.listOfChoice(true, "Login\n", "Ga verder als gast\n");
+                if (Screen_1 == -1) {
+                    mainLoop = false;
+                }
+                else if (Screen_1 == 0) {
+                    string accountType = Login();
+                    if (accountType == "Klant"){Klant();}
+                    else if (accountType == "Werknemer"){Werknemer();}
+                    else if (accountType == "Admin"){Admin();}
+                    }
+                else if (Screen_1 == 1) {
+                    for (bool gastLoop = true; gastLoop;){
+                    int screen_Gast_Start = Options.listOfChoice(true, "Login\n", "Registreren\n", "Reserveren\n", "Contact\n");
+                    if (screen_Gast_Start == -1) {
+                        mainLoop = false;
+                        gastLoop = false;
+                    }
+                    else if (screen_Gast_Start == 0){
+                        string accountType = Login();
+                        if (accountType == "Klant"){Klant();}
+                        else if (accountType == "Werknemer"){Werknemer();}
+                        else if (accountType == "Admin"){Admin();}
+                    }
+                    else if (screen_Gast_Start == 1){}
+                    else if (screen_Gast_Start == 2){}
+                    else if (screen_Gast_Start == 3){}
+                    }
+                }
+            }
+        }
+        public static string Login() {
+            string gebruikersNaam;
+            string gebruikersWachtwoord;
+            Console.Clear();
+            Console.WriteLine("Gebruikers naam");
+            gebruikersNaam = Console.ReadLine();
+            Console.WriteLine("Gebruikers wachtwoord");
+            gebruikersWachtwoord = Console.ReadLine();
+            // Json file
+            return "Klant"; // Return index of Dictionary with accounttype
+        }
+        public static void Klant() {
+            int screen_Klant_Start = Options.listOfChoice(true, "Logout\n", "Mijn informatie\n", "Reserveren\n", "Contact\n");
+        }
+        public static void Werknemer() {
+            int screen_Werknemer_Start = Options.listOfChoice(true, "Logout\n", "Menu\n", "Reserveren\n", "Contact\n");
+        }
+        public static void Admin() {
+            int screen_Admin_Start = Options.listOfChoice(true, "Logout\n", "Accounts\n", "Menu\n", "Contact\n");
         }
     }
-    class ConsoleHelper
+    class Options
     {
-    public static int MultipleChoice(bool canCancel, params string[] options)
+    public static int listOfChoice(bool canCancel, params string[] options)
         {
-        const int startY = 8;
+        // const int startY = 8;
 
         int currentSelection = 0;
 
@@ -61,10 +76,10 @@ namespace HelloWorld
 
             for (int i = 0; i < options.Length; i++)
                 {
-                Console.SetCursorPosition(0, startY + i);
+                // Console.SetCursorPosition(0, startY + i);
 
                 if(i == currentSelection)
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Blue;
 
                 Console.Write(options[i]);
 
