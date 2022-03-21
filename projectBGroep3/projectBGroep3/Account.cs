@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-
+// json stuff
 namespace projectBGroep3
 {
     class Account
