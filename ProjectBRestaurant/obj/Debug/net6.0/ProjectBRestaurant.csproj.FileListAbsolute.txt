@@ -1,5 +1,0 @@
-C:\Users\Min En\Desktop\ProjectBRestaurant\obj\Debug\net6.0\ProjectBRestaurant.csproj.AssemblyReference.cache
-C:\Users\Min En\Desktop\ProjectBRestaurant\obj\Debug\net6.0\ProjectBRestaurant.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Min En\Desktop\ProjectBRestaurant\obj\Debug\net6.0\ProjectBRestaurant.AssemblyInfoInputs.cache
-C:\Users\Min En\Desktop\ProjectBRestaurant\obj\Debug\net6.0\ProjectBRestaurant.AssemblyInfo.cs
-C:\Users\Min En\Desktop\ProjectBRestaurant\obj\Debug\net6.0\ProjectBRestaurant.csproj.CoreCompileInputs.cache
