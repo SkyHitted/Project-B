@@ -32,13 +32,12 @@ namespace projectBGroep3
                         // Console.SetCursorPosition(0, startY + i);
 
                         if (i == currentSelection)
-                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
 
                         Console.Write(options[i]);
 
                         Console.ResetColor();
                     }
-
                     key = Console.ReadKey(true).Key;
 
                     switch (key)
