@@ -13,23 +13,23 @@ namespace projectBGroep3
         {
             if (!File.Exists("Accounts.json")) // Check of json file er is
             {
-                var tmp = new TypesOfChoice();
+                var tmp = new TypesOfChoice(); // maakt nieuwe class TypeOfChoice aan
                 tmp.Accounts = new List<AccountJson>
                 {
                     new AccountJson {id = 1, username = "Admin", password = "Admin1", typeOfAccount = "admin"}//Maakt admin account
                 };
                 string fileNameAccounts = "Accounts.json";
-                string jsonString = JsonSerializer.Serialize(tmp);//Saved naar json file
-                File.WriteAllText(fileNameAccounts, jsonString);
+                string jsonString = JsonSerializer.Serialize(tmp);
+                File.WriteAllText(fileNameAccounts, jsonString); // Saved naar json file
             }
-            if (!File.Exists("OpenSlotsReserveren.json"))
+            if (!File.Exists("OpenSlotsReserveren.json")) // Check of json file er is 
             {
-                var tmp = new NewDay();
+                var tmp = new NewDay(); // maakt nieuwe class NewDay aan
                 tmp.Reserveren = new List<ReserverenJson>
                 {
                     new ReserverenJson
                     {
-                        deDatum = DateTime.Today.AddDays(-1).Date.ToString(),
+                        deDatum = DateTime.Today.AddDays(-1).Date.ToString(), // tmp dag van gisteren in json zetten
                         allTime = new List<slotsAndReseveren>
                         {
                             new slotsAndReseveren
@@ -68,9 +68,9 @@ namespace projectBGroep3
                     ReserverenClass.ReserveringChecker(day);
                 }
             }
-            if (!File.Exists("ConfirmReserveren.json"))
+            if (!File.Exists("ConfirmReserveren.json")) // Check of json file er is
             {
-                var tmp = new NewReservering();
+                var tmp = new NewReservering(); // maakt nieuwe class NewReservering aan
                 tmp.deReserveringAgenda = new List<BevestigingCodeJson>
                 {
                     new BevestigingCodeJson
@@ -94,9 +94,9 @@ namespace projectBGroep3
                 string jsonString = JsonSerializer.Serialize(tmp);//Saved naar json file
                 File.WriteAllText(fileNameConfirm, jsonString);
             }
-            if (!File.Exists("Menu.json"))
+            if (!File.Exists("Menu.json")) // Check of json file er is
             {
-                var tmp = new NewKeuken();
+                var tmp = new NewKeuken(); // maakt nieuwe class NewKeuken aan
                 tmp.Menu = new List<MenuJson>
                 {
                     new MenuJson
@@ -180,10 +180,10 @@ namespace projectBGroep3
             }
             bool mainLoop = true;
             string s = "";
-            for (int i = 1; i < 15; i++)
+            for (int i = 1; i < 15; i++) // Checkt altijd begin 14 dagen vooruit of een nieuwe dag in json kan
             {
                 DateTime day = DateTime.Today.AddDays(i);
-                ReserverenClass.ReserveringChecker(day);
+                ReserverenClass.ReserveringChecker(day); // Checkt json en dag
             }
             while (mainLoop)//Loop voor hele applicatie
             {
@@ -196,11 +196,11 @@ namespace projectBGroep3
 ░░╚██╔╝░╚██╔╝░███████╗███████╗██║░╚██╗╚█████╔╝██║░╚═╝░██║
 ░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═╝
 
-╔═══════════════════════════════════════════════════════════╗
-║ Navigeer de applicatie door middel van de pijltjestoetsen.║
-║ Uw geselecteerd optie is in blauw.                        ║
-║ Bevestig uw keuze door middel van de Enter toets.         ║
-╚═══════════════════════════════════════════════════════════╝" + "\n";
+╔════════════════════════════════════════════════════════════════╗
+║ Navigeer de applicatie door middel van de pijltjestoetsen.     ║
+║ Uw geselecteerd optie is in blauw gemarkeerd.                  ║
+║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
+╚════════════════════════════════════════════════════════════════╝" + "\n";
                 int Screen_1 = Options.listOfChoice(true, s, "Inloggen\n", "Ga verder als gast\n");//Roept class Options voor een int return
                 if (Screen_1 == -1) // gebruiker drukt esc
                 {
@@ -221,11 +221,11 @@ namespace projectBGroep3
                     for (int i = 4; i > 0 && !notLoggedIn; i--)
                     {
                         Console.WriteLine(title);
-                        getMelding(melding);
+                        getMelding(melding); // Roept foutmelding functie
                         int accountID = Login();// Roept Login functie
                         if (accountID > 0)
                         {
-                            var jsonString = File.ReadAllText(fileNameAccounts); // json
+                            var jsonString = File.ReadAllText(fileNameAccounts); // json Accounts
                             var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!;
                             for (int j = 0; j < existAccount.Accounts.Count; j++) // loop id to find accounttype
                             {
@@ -253,7 +253,7 @@ namespace projectBGroep3
                         else
                         {
                             Console.Clear();
-                            melding = $"U heeft een foute gebruikersnaam of gebruikerswachtwoord ingevoerd. U heeft nog {i - 1} kans(en) over\n";
+                            melding = $"U heeft een foute gebruikersnaam of gebruikerswachtwoord ingevoerd. U heeft nog {i - 1} kans(en) over.\n";
                         }
                     }
 
@@ -262,11 +262,12 @@ namespace projectBGroep3
                 {
                     for (bool gastLoop = true; gastLoop;) // Gastloop
                     {
-                        s = @"╔═══════════════════════════════════════════════════════════╗
-║ Navigeer de applicatie door middel van de pijltjestoetsen.║
-║ Uw geselecteerd optie is in blauw.                        ║
-║ Bevestig uw keuze door middel van de Enter toets.         ║
-╚═══════════════════════════════════════════════════════════╝
+                        s = 
+@"╔════════════════════════════════════════════════════════════════╗
+║ Navigeer de applicatie door middel van de pijltjestoetsen.     ║
+║ Uw geselecteerd optie is in blauw gemarkeerd.                  ║
+║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
+╚════════════════════════════════════════════════════════════════╝
 
 Welkom gast!" + "\n";
                         int screen_Gast_Start = Options.listOfChoice(true, s, "Inloggen\n", "Registreren\n", "Reserveren\n", "Contact\n");
@@ -274,7 +275,7 @@ Welkom gast!" + "\n";
                         {
                             gastLoop = false;
                         }
-                        else if (screen_Gast_Start == 0)
+                        else if (screen_Gast_Start == 0) // zelfde inloggen als bij begin
                         {
                             Console.Clear();
                             string title =
@@ -322,7 +323,7 @@ Welkom gast!" + "\n";
                                 else
                                 {
                                     Console.Clear();
-                                    melding = $"U heeft een foute gebruikersnaam of gebruikerswachtwoord ingevoerd. U heeft nog {i - 1} kans(en) over\n";
+                                    melding = $"U heeft een foute gebruikersnaam of gebruikerswachtwoord ingevoerd. U heeft nog {i - 1} kans(en) over.\n";
                                 }
                             }
                         }
@@ -330,18 +331,16 @@ Welkom gast!" + "\n";
                         {
                             int accountType = Register("klant");
                             if (accountType == 0) { continue; }// registratie ging fout, reset loop
-                            Klant(accountType);
+                            Klant(accountType); // gelijk inloggen als klopt
                             break;
                         }
                         else if (screen_Gast_Start == 2)
                         {
-                            ReserverenClass.Reserveren(0);
+                            ReserverenClass.Reserveren(0); // ga naar reserveren functie
                         }
                         else if (screen_Gast_Start == 3)
                         {
-                            Console.Clear();
-                            Console.WriteLine("No function atm");
-                            Console.ReadKey();
+                            ContactInformatie();
                         }
                     }
                 }
@@ -349,11 +348,11 @@ Welkom gast!" + "\n";
         }
         public static void getMelding(string s)
         {
-            if (s.Length == 0)
+            if (s.Length == 0) // geen string = geen melding
             {
                 return;
             }
-            else
+            else // rode melding
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(s);
@@ -366,7 +365,7 @@ Welkom gast!" + "\n";
             Console.Clear();
             string fileNameAccounts = "Accounts.json";
             string jsonString = File.ReadAllText(fileNameAccounts);
-            var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!; // json
+            var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!; // json account
             string title =
 @"██████╗░███████╗░██████╗░██╗░██████╗████████╗██████╗░███████╗██████╗░███████╗███╗░░██╗
 ██╔══██╗██╔════╝██╔════╝░██║██╔════╝╚══██╔══╝██╔══██╗██╔════╝██╔══██╗██╔════╝████╗░██║
@@ -375,28 +374,28 @@ Welkom gast!" + "\n";
 ██║░░██║███████╗╚██████╔╝██║██████╔╝░░░██║░░░██║░░██║███████╗██║░░██║███████╗██║░╚███║
 ╚═╝░░╚═╝╚══════╝░╚═════╝░╚═╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝" + "\n";
             Console.WriteLine(title);
-            Console.WriteLine("Maak uw gebruikers naam");
+            Console.WriteLine("Maak uw gebruikersnaam:");
             string usernameKlant = Console.ReadLine();
-            for (int i = 0; i < existAccount.Accounts.Count; i++)
+            for (int i = 0; i < existAccount.Accounts.Count; i++) // loop check of naam in json is
             {
                 if (usernameKlant.Length == 0)
                 {
-                    getMelding("U kan geen leeg gebruikers naam hebben\n");
-                    Console.WriteLine("\nDruk enter om verder te gaan");
+                    getMelding("U kan geen lege gebruikersnaam hebben.\n");
+                    Console.WriteLine("\nDruk op enter om verder te gaan.");
                     Console.ReadKey();
                     return 0;
                 }
-                else if (usernameKlant == existAccount.Accounts[i].username)
+                else if (usernameKlant == existAccount.Accounts[i].username) // naam is in json
                 {
-                    getMelding("Dit gebruikers naam is in gebruik, kies voor een nieuw gebruikers naam");
-                    Console.WriteLine("\nDruk enter om verder te gaan");
+                    getMelding("Deze gebruikersnaam is in gebruik, kies voor een nieuw gebruikersnaam.");
+                    Console.WriteLine("\nDruk op enter om verder te gaan.");
                     Console.ReadKey();
                     return 0;
                 }
             }
-            Console.WriteLine("Maak uw gebruikers wachtwoord");
+            Console.WriteLine("Maak uw gebruikerswachtwoord:");
             string passwordKlant = Console.ReadLine();
-            int idKlant = existAccount.Accounts[existAccount.Accounts.Count - 1].id + 1;
+            int idKlant = existAccount.Accounts[existAccount.Accounts.Count - 1].id + 1; // unieke id aanmaken
             if (type == "klant")
             {
                 existAccount.Accounts.Add(
@@ -410,7 +409,7 @@ Welkom gast!" + "\n";
                 );
             }
             jsonString = JsonSerializer.Serialize(existAccount);
-            File.WriteAllText(fileNameAccounts, jsonString);
+            File.WriteAllText(fileNameAccounts, jsonString); // opslaan naar json
             return idKlant;
         }
         public static int Login()
@@ -419,12 +418,12 @@ Welkom gast!" + "\n";
             string gebruikersWachtwoord;
             string fileNameAccounts = "Accounts.json";
             string jsonString = File.ReadAllText(fileNameAccounts);
-            var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!;
-            Console.WriteLine("Voer in uw gebruikers naam:");
+            var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!; // load json
+            Console.WriteLine("Voer uw gebruikersnaam in:");
             gebruikersNaam = Console.ReadLine();
-            Console.WriteLine("Voer in uw gebruikers wachtwoord:");
+            Console.WriteLine("Voer uw gebruikerswachtwoord in:");
             gebruikersWachtwoord = Console.ReadLine();
-            for (int i = 0; i < existAccount.Accounts.Count; i++)
+            for (int i = 0; i < existAccount.Accounts.Count; i++) // loop check of login informatie in json is
             {
                 if (gebruikersNaam == existAccount.Accounts[i].username && gebruikersWachtwoord == existAccount.Accounts[i].password)
                 {
@@ -437,63 +436,61 @@ Welkom gast!" + "\n";
         public static void Klant(int id)
         {
             string fileNameAccounts = "Accounts.json";//json file locatie
-            var jsonString = File.ReadAllText(fileNameAccounts); // json
+            var jsonString = File.ReadAllText(fileNameAccounts); // json accounts
             var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!;
-            int indexUser = GetUserIndex(id);
-            if (indexUser < 0)
+            int indexUser = GetUserIndex(id); // index van user in json
+            if (indexUser < 0) // c# wilt dit
             {
                 return;
             }
-            string nameUser = existAccount.Accounts[indexUser].username;
+            string nameUser = existAccount.Accounts[indexUser].username; // gebruikersnaam
             for (bool klantLoop = true; klantLoop;)
             {
                 string s =
-@"╔═══════════════════════════════════════════════════════════╗
-║ Navigeer de applicatie door middel van de pijltjestoetsen.║
-║ Uw geselecteerd optie is in blauw.                        ║
-║ Bevestig uw keuze door middel van de Enter toets.         ║
-╚═══════════════════════════════════════════════════════════╝" + "\n";
+@"╔════════════════════════════════════════════════════════════════╗
+║ Navigeer de applicatie door middel van de pijltjestoetsen.     ║
+║ Uw geselecteerd optie is in blauw gemarkeerd.                  ║
+║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
+╚════════════════════════════════════════════════════════════════╝" + "\n";
                 s += $"Welkom {nameUser}\n";
                 int screen_Klant_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn informatie\n", "Reserveren\n", "Contact\n");
-                if (screen_Klant_Start == -1 || screen_Klant_Start == 0)
+                if (screen_Klant_Start == -1 || screen_Klant_Start == 0) // esc of uitloggen invoer
                 {
                     break;
                 }
                 else if (screen_Klant_Start == 1)
                 {
-                    MijnInformatie(id, nameUser);
+                    MijnInformatie(id, nameUser); // roept mijninfo functie
                 }
                 else if (screen_Klant_Start == 2)
                 {
-                    ReserverenClass.Reserveren(id);
+                    ReserverenClass.Reserveren(id); // roept reserveren functie
                 }
                 else if (screen_Klant_Start == 3)
                 {
-                    Console.Clear();
-                    Console.WriteLine("No function atm");
-                    Console.ReadKey();
+                    ContactInformatie();
                 }
-                    }
+            }
         }
         public static void Werknemer(int id)
         {
             string fileNameAccounts = "Accounts.json";//json file locatie
             var jsonString = File.ReadAllText(fileNameAccounts); // json
             var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!;
-            int indexUser = GetUserIndex(id);
-            if (indexUser < 0)
+            int indexUser = GetUserIndex(id); // index van user in json
+            if (indexUser < 0) // c# wilt dit
             {
                 return;
             }
-            string nameUser = existAccount.Accounts[indexUser].username;
+            string nameUser = existAccount.Accounts[indexUser].username; // gebruikersnaam in json
             for (bool WerknemerLoop = true; WerknemerLoop;)
             {
                 string s =
-@"╔═══════════════════════════════════════════════════════════╗
-║ Navigeer de applicatie door middel van de pijltjestoetsen.║
-║ Uw geselecteerd optie is in blauw.                        ║
-║ Bevestig uw keuze door middel van de Enter toets.         ║
-╚═══════════════════════════════════════════════════════════╝" + "\n";
+@"╔════════════════════════════════════════════════════════════════╗
+║ Navigeer de applicatie door middel van de pijltjestoetsen.     ║
+║ Uw geselecteerd optie is in blauw gemarkeerd.                  ║
+║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
+╚════════════════════════════════════════════════════════════════╝" + "\n";
                 s += $"Welkom {nameUser}\n";
                 int screen_Werknemer_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn Informatie\n", "Menu\n", "Reserveren\n", "Contact\n");
                 if (screen_Werknemer_Start == -1 || screen_Werknemer_Start == 0)
@@ -502,30 +499,28 @@ Welkom gast!" + "\n";
                 }
                 else if (screen_Werknemer_Start == 1)
                 {
-                    MijnInformatie(id, nameUser);
+                    MijnInformatie(id, nameUser); // roept mijninfo functie
                 }
                 else if (screen_Werknemer_Start == 2)
                 {
-                    Menu();
+                    Menu(); // roept menu functie
                 }
                 else if (screen_Werknemer_Start == 3)
                 {
-                    ReserverenClass.HigherReserveren(id);
+                    ReserverenClass.HigherReserveren(id); // roept admin/werknemer reserveer functie op
                 }
                 else if (screen_Werknemer_Start == 4)
                 {
-                    Console.Clear();
-                    Console.WriteLine("No function atm");
-                    Console.ReadKey();
+                    ContactInformatie();
                 }
             }
         }
         public static void Admin(int id)
         {
             string fileNameAccounts = "Accounts.json";//json file locatie
-            var jsonString = File.ReadAllText(fileNameAccounts); // json
+            var jsonString = File.ReadAllText(fileNameAccounts); // json account
             var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!;
-            int indexUser = GetUserIndex(id);
+            int indexUser = GetUserIndex(id); // zelfde als werknemer en klant
             if (indexUser < 0)
             {
                 return;
@@ -534,11 +529,11 @@ Welkom gast!" + "\n";
             for (bool adminLoop = true; adminLoop;)
             {
                 string s =
-@"╔═══════════════════════════════════════════════════════════╗
-║ Navigeer de applicatie door middel van de pijltjestoetsen.║
-║ Uw geselecteerd optie is in blauw.                        ║
-║ Bevestig uw keuze door middel van de Enter toets.         ║
-╚═══════════════════════════════════════════════════════════╝" + "\n";
+@"╔════════════════════════════════════════════════════════════════╗
+║ Navigeer de applicatie door middel van de pijltjestoetsen.     ║
+║ Uw geselecteerd optie is in blauw gemarkeerd.                  ║
+║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
+╚════════════════════════════════════════════════════════════════╝" + "\n";
                 s += $"Welkom {nameUser}\n";
                 int screen_Admin_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn informatie\n","Account systeem\n", "Menu systeem\n", "Reservering systeem\n", "Contact\n");
                 if (screen_Admin_Start == -1 || screen_Admin_Start == 0)
@@ -547,7 +542,7 @@ Welkom gast!" + "\n";
                 }
                 else if (screen_Admin_Start == 1)
                 {
-                    MijnInformatie(id, nameUser);
+                    MijnInformatie(id, nameUser); // roept Mijninfo functie
                 }
                 else if (screen_Admin_Start == 2)
                 {
@@ -558,36 +553,35 @@ Welkom gast!" + "\n";
 ███████║██║░░╚═╝██║░░╚═╝██║░░██║██║░░░██║██╔██╗██║░░░██║░░░╚█████╗░
 ██╔══██║██║░░██╗██║░░██╗██║░░██║██║░░░██║██║╚████║░░░██║░░░░╚═══██╗
 ██║░░██║╚█████╔╝╚█████╔╝╚█████╔╝╚██████╔╝██║░╚███║░░░██║░░░██████╔╝
-╚═╝░░╚═╝░╚════╝░░╚════╝░░╚════╝░░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚═════╝░" + "\n";
-                    for (bool accountLoop = true; accountLoop;)
+╚═╝░░╚═╝░╚════╝░░╚════╝░░╚════╝░░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚═════╝░" + "\n\n";
+                    for (bool accountLoop = true; accountLoop;) // inner loop voor accounts
                     {
                         int screen_Admin_Accounts = Options.listOfChoice(true, s, "Account verwijderen\n", "Werknemer account registeren\n", "Ga terug\n");
-                        if (screen_Admin_Accounts == -1 || screen_Admin_Accounts == 2)
+                        if (screen_Admin_Accounts == -1 || screen_Admin_Accounts == 2) // kiest esc of ga terug
                         {
                             break;
                         }
-                        else if (screen_Admin_Accounts == 0)
+                        else if (screen_Admin_Accounts == 0) // account verwijderen
                         {
                             Console.Clear();
-                            jsonString = File.ReadAllText(fileNameAccounts); // json
+                            jsonString = File.ReadAllText(fileNameAccounts); // json accounts
                             existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!;
-                            for (int i = 0; i < existAccount.Accounts.Count; i++)
+                            for (int i = 0; i < existAccount.Accounts.Count; i++) // maakt een mooi string lijst
                             {
                                 s += $"Account information:\n\tId: {existAccount.Accounts[i].id}, Gebruikersnaam: {existAccount.Accounts[i].username}, Gebruikerswachtwoord: {existAccount.Accounts[i].password}, Account type: {existAccount.Accounts[i].typeOfAccount}\n";
                             }
 
                             int screen_Account_Verwijderen = Options.listOfChoice(true, title + s, "Verwijder account\n", "Ga terug\n");
-                            if (screen_Account_Verwijderen == -1 || screen_Account_Verwijderen == 1)
+                            if (screen_Account_Verwijderen == -1 || screen_Account_Verwijderen == 1) // esc of ga terug
                             {
                                 continue;
                             }
-                            else
+                            else // verwijder
                             {
                                 Console.Clear();
-                                Console.WriteLine(title);
-                                Console.WriteLine("\nVoer in de ID van de account dat u wilt verwijderen. Voer in 0 om te annuleren.");
+                                Console.WriteLine(title + "Voer in de ID van de account dat u wilt verwijderen. Voer in 0 om te annuleren.");
                                 int idToDelete = int.Parse(Console.ReadLine());
-                                if (idToDelete == 0)
+                                if (idToDelete == 0) // annuleer
                                 {
                                     continue;
                                 }
@@ -607,7 +601,7 @@ Welkom gast!" + "\n";
                         }
                         else if (screen_Admin_Accounts == 1)
                         {
-                            Register("werknemer");
+                            Register("werknemer"); // maakt werknemer account
                         }
                     }
                 }
@@ -621,9 +615,38 @@ Welkom gast!" + "\n";
                 }
                 else if (screen_Admin_Start == 5)
                 {
-                    Console.Clear();
-                    Console.WriteLine("No function atm");
-                    Console.ReadKey();
+                    ContactInformatie();
+                }
+            }
+        }
+        public static void ContactInformatie()
+        {
+            string title =
+@"░█████╗░░█████╗░███╗░░██╗████████╗░█████╗░░█████╗░████████╗  ██╗███╗░░██╗███████╗░█████╗░██████╗░███╗░░░███╗░█████╗░████████╗██╗███████╗
+██╔══██╗██╔══██╗████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝  ██║████╗░██║██╔════╝██╔══██╗██╔══██╗████╗░████║██╔══██╗╚══██╔══╝██║██╔════╝
+██║░░╚═╝██║░░██║██╔██╗██║░░░██║░░░███████║██║░░╚═╝░░░██║░░░  ██║██╔██╗██║█████╗░░██║░░██║██████╔╝██╔████╔██║███████║░░░██║░░░██║█████╗░░
+██║░░██╗██║░░██║██║╚████║░░░██║░░░██╔══██║██║░░██╗░░░██║░░░  ██║██║╚████║██╔══╝░░██║░░██║██╔══██╗██║╚██╔╝██║██╔══██║░░░██║░░░██║██╔══╝░░
+╚█████╔╝╚█████╔╝██║░╚███║░░░██║░░░██║░░██║╚█████╔╝░░░██║░░░  ██║██║░╚███║██║░░░░░╚█████╔╝██║░░██║██║░╚═╝░██║██║░░██║░░░██║░░░██║███████╗
+░╚════╝░░╚════╝░╚═╝░░╚══╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░  ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝╚══════╝" + "\n\n";
+            string s = 
+@"Openingstijden:
+    Woensdag 10:00 tot en met 23:30.
+    Donderdag 10:00 tot en met 23:30.
+    Vrijdag 10:00 tot en met 23:30.
+
+Adres:
+    Wijnhaven 107
+    3011 WN Rotterdam
+
+Email: restaurant@groep3.nl
+Telefoon: 010 123 4567" + "\n";
+            Console.Clear();
+            for (bool contactLoop = true; contactLoop;)
+            {
+                int screenContact = Options.listOfChoice(true, title + s, "Ga terug\n");
+                if (screenContact == 0 || screenContact == -1)
+                {
+                    return;
                 }
             }
         }
@@ -641,13 +664,13 @@ Welkom gast!" + "\n";
 ██╔████╔██║██║░░░░░██║██╔██╗██║  ██║██╔██╗██║█████╗░░██║░░██║██████╔╝██╔████╔██║███████║░░░██║░░░██║█████╗░░
 ██║╚██╔╝██║██║██╗░░██║██║╚████║  ██║██║╚████║██╔══╝░░██║░░██║██╔══██╗██║╚██╔╝██║██╔══██║░░░██║░░░██║██╔══╝░░
 ██║░╚═╝░██║██║╚█████╔╝██║░╚███║  ██║██║░╚███║██║░░░░░╚█████╔╝██║░░██║██║░╚═╝░██║██║░░██║░░░██║░░░██║███████╗
-╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚══╝  ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝╚══════╝" + "\n"; 
+╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚══╝  ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝╚══════╝" + "\n\n"; 
             string boxOfInstructies =
-@"╔═══════════════════════════════════════════════════════════╗
-║ Navigeer de applicatie door middel van de pijltjestoetsen.║
-║ Uw geselecteerd optie is in blauw.                        ║
-║ Bevestig uw keuze door middel van de Enter toets.         ║
-╚═══════════════════════════════════════════════════════════╝" + "\n";
+@"╔════════════════════════════════════════════════════════════════╗
+║ Navigeer de applicatie door middel van de pijltjestoetsen.     ║
+║ Uw geselecteerd optie is in blauw gemarkeerd.                  ║
+║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
+╚════════════════════════════════════════════════════════════════╝" + "\n";
             for (bool mijnInfoLoop = true; mijnInfoLoop;)
             {
                 Console.Clear();
@@ -673,7 +696,7 @@ Welkom gast!" + "\n";
                         Console.Clear();
                         string melding = "";
                         s = "Alle geldige reserveringen:\n"; 
-                        string invoeren = "\nVoer in de Bevestigingcode van de reservering dat u wilt annuleren\n(Voer in \"Terug\" om naar de vorige scherm te gaan, zonder aanhalingstekens)";
+                        string invoeren = "\nVoer in de Bevestigingcode van de reservering dat u wilt annuleren.\n(Voer in \"Terug\" om naar de vorige scherm te gaan, zonder aanhalingstekens.)";
                         for (bool annuleerReserveringLoop = true; annuleerReserveringLoop;)
                         {
                             Console.WriteLine(title);
@@ -700,7 +723,7 @@ Welkom gast!" + "\n";
                                         Console.Clear();
                                         Console.WriteLine("U heeft de volgende reservering geannuleerd:");
                                         Console.WriteLine($"\tNaam: { tmpSmallVariable[i].naamReservering}, Datum: { tmpSmallVariable[i].datumReservering}, Tijd: { tmpSmallVariable[i].tijdReservering}, Aantal gasten: { tmpSmallVariable[i].gastenReservering}, Bevestigingcode: { tmpSmallVariable[i].bevestigingCode}\n");
-                                        Console.WriteLine("\nDruk op Enter om verder te gaan");
+                                        Console.WriteLine("\nDruk op Enter om verder te gaan.");
                                         Console.ReadKey();
 
                                         existReserveren.Reserveren[indexOfReserveren].allTime[0].openSlotten[tmpSmallDict[tmpSmallVariable[i].tijdReservering]] += tmpSmallVariable[i].gastenReservering; // add aantal gasten terug in json
@@ -716,7 +739,7 @@ Welkom gast!" + "\n";
                                     }
                                 }
                                 Console.Clear();
-                                melding = "U heeft een incorrect Bevestigingcode in gevoerd\n";
+                                melding = "U heeft een incorrect Bevestigingcode in gevoerd.\n";
                                 continue;
                             }
                         }
@@ -740,20 +763,22 @@ Welkom gast!" + "\n";
         public static void Menu()
         {
             string fileNameMenu = "Menu.json";
-            var jsonString = File.ReadAllText(fileNameMenu); // json
+            var jsonString = File.ReadAllText(fileNameMenu); // json menu
             var jsonMenu = JsonSerializer.Deserialize<NewKeuken>(jsonString)!;
+            string melding = "";
             string title =
 @"███╗░░░███╗███████╗███╗░░██╗██╗░░░██╗
 ████╗░████║██╔════╝████╗░██║██║░░░██║
 ██╔████╔██║█████╗░░██╔██╗██║██║░░░██║
 ██║╚██╔╝██║██╔══╝░░██║╚████║██║░░░██║
 ██║░╚═╝░██║███████╗██║░╚███║╚██████╔╝
-╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░╚═════╝░" + "\n\n";
+╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░╚═════╝░" + "\n\n"; 
+            string annuleer = "(Voer in \"Afbreken\" om het aanpassen van het menu te stoppen, zonder aanhalingstekens.)\n";
             for (bool menuLoop = true; menuLoop;)
             {
                 string s = title + "Kies het menu dat u wilt weergeven.\n";
                 List<string> alleKeukens = new List<string>();
-                for (int i = 0; i < jsonMenu.Menu.Count; i++)
+                for (int i = 0; i < jsonMenu.Menu.Count; i++) // list van alle keukens
                 {
                     alleKeukens.Add(jsonMenu.Menu[i].keukenNaam + "\n");
                 }
@@ -761,23 +786,24 @@ Welkom gast!" + "\n";
                 alleKeukens.Add("Ga terug\n");
 
                 int screenMenu1 = Options.listOfChoice(true, s, alleKeukens.ToArray());
-                if (screenMenu1 == -1 || screenMenu1 == alleKeukens.Count - 1)
+                if (screenMenu1 == -1 || screenMenu1 == alleKeukens.Count - 1) // ga terug of esc
                 {
                     menuLoop = false;
                     return;
                 }
-                else if (screenMenu1 == alleKeukens.Count - 2)
+                else if (screenMenu1 == alleKeukens.Count - 2) // toevoegen
                 {
+                    melding = "";
                     List<string> voegGerechtKeuken = new List<string>();
                     for (int i = 0; i < jsonMenu.Menu.Count; i++)
                     {
                         voegGerechtKeuken.Add(jsonMenu.Menu[i].keukenNaam + "\n");
                     }
-                    voegGerechtKeuken.Add("Ga terug\n");
+                    voegGerechtKeuken.Add("Afbreken\n");
                     Console.Clear();
                     for (bool loopVanToevoegen = true; loopVanToevoegen;)
                     {
-                        s = title + "Kies de keuken waarin het gerecht word toegevoegd\n";
+                        s = title + "Kies de keuken waarin het gerecht word toegevoegd.\n(Kies voor \"Afbreken\" om het toevoegen van een gerecht te stoppen.)\n";
                         int screenToevoegen1 = Options.listOfChoice(true, s, voegGerechtKeuken.ToArray());
                         if (screenToevoegen1 == -1 || screenToevoegen1 == voegGerechtKeuken.Count - 1)
                         {
@@ -788,8 +814,8 @@ Welkom gast!" + "\n";
                             Console.Clear();
                             for (bool loopVanMaaltijd = true; loopVanMaaltijd;)
                             {
-                                s = title + "Kies de type maaltijd voor het nieuwe gerecht\n";
-                                int screenToevoegen2 = Options.listOfChoice(true, s, "Ontbijt\n", "Lunch\n", "Avondeten\n", "Desert\n", "Ga terug\n");
+                                s = title + "Kies de type maaltijd voor het nieuwe gerecht.\n";
+                                int screenToevoegen2 = Options.listOfChoice(true, s, "Ontbijt\n", "Lunch\n", "Avondeten\n", "Desert\n", "Afbreken\n");
                                 if (screenToevoegen2 == -1 || screenToevoegen2 == 4)
                                 {
                                     loopVanToevoegen = false;
@@ -805,22 +831,41 @@ Welkom gast!" + "\n";
                                 {
                                     Console.Clear();
                                     Console.WriteLine(title);
-                                    Console.WriteLine("Voer in de naam van het nieuwe gerecht.");
+                                    getMelding(melding);
+                                    Console.WriteLine("Voer de naam in van het nieuwe gerecht:\n" + annuleer);
                                     string naamNewGerecht = Console.ReadLine();
-                                    if (naamNewGerecht.Length > 0)
+                                    if (naamNewGerecht == "Afbreken")
                                     {
+                                        Console.Clear();
+                                        loopVanToevoegen = false;
+                                        loopVanMaaltijd = false;
+                                        break;
+                                    }
+                                    else if (naamNewGerecht.Length > 0)
+                                    {
+                                        melding = "";
                                         for (bool loopNieuwGerechtPrijs = true; loopNieuwGerechtPrijs;)
                                         {
                                             Console.Clear();
-                                            Console.WriteLine(title + "Voer in de prijs van het nieuwe gerecht.");
-                                            double prijsNewGerecht = double.Parse(Console.ReadLine());
-                                            if (!double.TryParse(Console.ReadLine(), out double prijsGerecht))
+                                            Console.WriteLine(title);
+                                            getMelding(melding);
+                                            Console.WriteLine("Voer de prijs in van het nieuwe gerecht, in de format: 10 voor 10 euro of 7,5 voor 7,50 euro\n" + annuleer);
+                                            string prijsNewGerecht = Console.ReadLine();
+                                            if (prijsNewGerecht == "Afbreken")
+                                            {
+                                                Console.Clear();
+                                                loopVanToevoegen = false;
+                                                loopVanMaaltijd = false;
+                                                loopNieuwGerechtNaam = false;
+                                                break;
+                                            }
+                                            if (double.TryParse(prijsNewGerecht, out double prijsGerecht))
                                             {
                                                 menuType.Add(
                                                     new MenuGerechten
                                                     {
                                                         naamGerecht = naamNewGerecht,
-                                                        prijsGerecht = prijsNewGerecht
+                                                        prijsGerecht = prijsGerecht
                                                     });
                                                 jsonString = JsonSerializer.Serialize(jsonMenu);//Saved naar json file
                                                 File.WriteAllText(fileNameMenu, jsonString);
@@ -829,36 +874,106 @@ Welkom gast!" + "\n";
                                                 loopVanMaaltijd = false;
                                                 loopVanToevoegen = false;
                                             }
+                                            else
+                                            {
+                                                Console.Clear();
+                                                melding = "U heeft geen nummer ingevoerd.\n";
+                                                continue;
+                                            }
                                         }
                                     }
                                     else
                                     {
                                         Console.Clear();
+                                        melding = "U heeft geen naam gegeven aan het nieuwe gerecht.\n";
+                                        continue;
                                     }
                                 }
                             }
                         }
                     }
                 }
-                else
+                else // maakt menu kaarten
                 {
                     string ontbijt = GetMenuBox(screenMenu1, "Ontbijt");
                     string lunch = GetMenuBox(screenMenu1, "Lunch");
                     string avondeten = GetMenuBox(screenMenu1, "Avondeten");
                     string desert = GetMenuBox(screenMenu1, "Desert");
                     s = title + $"{jsonMenu.Menu[screenMenu1].keukenNaam}\n";
+                    string menuKaart = s + ontbijt + lunch + avondeten + desert;
                     Console.Clear();
-                    Console.WriteLine(s + ontbijt + lunch + avondeten + desert);
-                    Console.ReadKey();
+                    melding = "";
+                    for (bool loopMenuKaart = true; loopMenuKaart;)
+                    {
+                        int screenDelete1 = Options.listOfChoice(true, menuKaart, "Een gerecht verwijderen\n", "Ga terug\n");
+                        if (screenDelete1 == -1 || screenDelete1 == 1)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            string instructieVerwijder1 = "Kies de type maaltijd van het gerecht.\n(Kies voor \"Afbreken\" om het verwijderen van een gerecht te stoppen.)\n";
+                            for (bool loopMenuKaartDelete1 = true; loopMenuKaartDelete1;)
+                            {
+                                int screenDelete2 = Options.listOfChoice(true, menuKaart + instructieVerwijder1, "Ontbijt\n", "Lunch\n", "Avondeten\n", "Desert\n", "Afbreken\n");
+                                if (screenDelete2 == -1 || screenDelete2 == 4)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    var gekozenKeukenJson = jsonMenu.Menu[screenMenu1];
+                                    var dictOfTypeMenu = new Dictionary<int, List<MenuGerechten>>()
+                                {
+                                    {0, gekozenKeukenJson.ontbijt}, {1, gekozenKeukenJson.lunch}, {2, gekozenKeukenJson.avondeten}, {3, gekozenKeukenJson.desert}
+                                };
+                                    var menuType = dictOfTypeMenu[screenDelete2];
+                                    for (bool loopMenuKaartDelete2 = true; loopMenuKaartDelete2;)
+                                    {
+                                        List<string> deleteGerechtKeuken = new List<string>();
+                                        for (int i = 0; i < menuType.Count; i++)
+                                        {
+                                            deleteGerechtKeuken.Add(menuType[i].naamGerecht + "\n");
+                                        }
+                                        deleteGerechtKeuken.Add("Afbreken\n");
+
+                                        instructieVerwijder1 = "Kies de maaltijd dat u wilt verwijderen\n(Kies voor \"Afbreken\" om het verwijderen van een gerecht te stoppen.)\n";
+                                        int screenDelete3 = Options.listOfChoice(true, menuKaart + instructieVerwijder1, deleteGerechtKeuken.ToArray());
+                                        if (screenDelete3 == -1 || screenDelete3 == deleteGerechtKeuken.Count-1)
+                                        {
+                                            loopMenuKaartDelete1 = false;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.Clear();
+                                            menuType.RemoveAt(screenDelete3);
+                                            jsonString = JsonSerializer.Serialize(jsonMenu);//Saved naar json file
+                                            File.WriteAllText(fileNameMenu, jsonString); 
+                                            Console.WriteLine("Druk op Enter om verder te gaan.");
+                                            Console.ReadKey();
+
+                                            jsonString = File.ReadAllText(fileNameMenu); // json menu
+                                            jsonMenu = JsonSerializer.Deserialize<NewKeuken>(jsonString)!;
+
+                                            goto LoopEnd;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                LoopEnd:;
                 }
             }
         }
         public static int GetUserIndex(int id)
         {
             string fileNameAccounts = "Accounts.json";//json file locatie
-            var jsonString = File.ReadAllText(fileNameAccounts); // json
+            var jsonString = File.ReadAllText(fileNameAccounts); // json account
             var existAccount = JsonSerializer.Deserialize<TypesOfChoice>(jsonString)!;
-            for (int i = 0; i < existAccount.Accounts.Count; i++)
+            for (int i = 0; i < existAccount.Accounts.Count; i++) // zoekt index van id in json
             {
                 if (id == existAccount.Accounts[i].id)
                 {
