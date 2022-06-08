@@ -14,5 +14,3 @@ C:\Users\Min En\source\repos\projectBGroep3\projectBGroep3\obj\Debug\net5.0\proj
 C:\Users\Min En\source\repos\projectBGroep3\projectBGroep3\obj\Debug\net5.0\ref\projectBGroep3.dll
 C:\Users\Min En\source\repos\projectBGroep3\projectBGroep3\obj\Debug\net5.0\projectBGroep3.pdb
 C:\Users\Min En\source\repos\projectBGroep3\projectBGroep3\obj\Debug\net5.0\projectBGroep3.genruntimeconfig.cache
-C:\Users\Min En\source\repos\projectBGroep3\projectBGroep3\bin\Debug\net5.0\Newtonsoft.Json.dll
-C:\Users\Min En\source\repos\projectBGroep3\projectBGroep3\obj\Debug\net5.0\projectBGroep3.csproj.CopyComplete
