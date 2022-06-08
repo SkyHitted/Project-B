@@ -387,7 +387,7 @@ Welkom gast!" + "\n";
                 }
                 else if (usernameKlant == existAccount.Accounts[i].username) // naam is in json
                 {
-                    getMelding("Deze gebruikersnaam is in gebruik, kies voor een nieuw gebruikersnaam.");
+                    getMelding("\nDeze gebruikersnaam is in gebruik, kies voor een nieuw gebruikersnaam.");
                     Console.WriteLine("\nDruk op enter om verder te gaan.");
                     Console.ReadKey();
                     return 0;
@@ -453,14 +453,14 @@ Welkom gast!" + "\n";
 ║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
 ╚════════════════════════════════════════════════════════════════╝" + "\n";
                 s += $"Welkom {nameUser}\n";
-                int screen_Klant_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn informatie\n", "Reserveren\n", "Contact\n");
+                int screen_Klant_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn reseveringen\n", "Reserveren\n", "Contact\n");
                 if (screen_Klant_Start == -1 || screen_Klant_Start == 0) // esc of uitloggen invoer
                 {
                     break;
                 }
                 else if (screen_Klant_Start == 1)
                 {
-                    MijnInformatie(id, nameUser); // roept mijninfo functie
+                    MijnReserveringen(id, nameUser); // roept mijninfo functie
                 }
                 else if (screen_Klant_Start == 2)
                 {
@@ -492,14 +492,14 @@ Welkom gast!" + "\n";
 ║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
 ╚════════════════════════════════════════════════════════════════╝" + "\n";
                 s += $"Welkom {nameUser}\n";
-                int screen_Werknemer_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn Informatie\n", "Menu\n", "Reserveren\n", "Contact\n");
+                int screen_Werknemer_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn reseveringen\n", "Menu\n", "Reserveren\n", "Contact\n");
                 if (screen_Werknemer_Start == -1 || screen_Werknemer_Start == 0)
                 {
                     break;
                 }
                 else if (screen_Werknemer_Start == 1)
                 {
-                    MijnInformatie(id, nameUser); // roept mijninfo functie
+                    MijnReserveringen(id, nameUser); // roept mijninfo functie
                 }
                 else if (screen_Werknemer_Start == 2)
                 {
@@ -535,14 +535,14 @@ Welkom gast!" + "\n";
 ║ Bevestig uw keuze door middel van de Enter toets in te drukken.║
 ╚════════════════════════════════════════════════════════════════╝" + "\n";
                 s += $"Welkom {nameUser}\n";
-                int screen_Admin_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn informatie\n","Account systeem\n", "Menu systeem\n", "Reservering systeem\n", "Contact\n");
+                int screen_Admin_Start = Options.listOfChoice(true, s, "Uitloggen\n", "Mijn reseveringen\n", "Account systeem\n", "Menu systeem\n", "Reservering systeem\n", "Contact\n");
                 if (screen_Admin_Start == -1 || screen_Admin_Start == 0)
                 {
                     break;
                 }
                 else if (screen_Admin_Start == 1)
                 {
-                    MijnInformatie(id, nameUser); // roept Mijninfo functie
+                    MijnReserveringen(id, nameUser); // roept Mijninfo functie
                 }
                 else if (screen_Admin_Start == 2)
                 {
@@ -556,7 +556,7 @@ Welkom gast!" + "\n";
 ╚═╝░░╚═╝░╚════╝░░╚════╝░░╚════╝░░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚═════╝░" + "\n\n";
                     for (bool accountLoop = true; accountLoop;) // inner loop voor accounts
                     {
-                        int screen_Admin_Accounts = Options.listOfChoice(true, s, "Account verwijderen\n", "Werknemer account registeren\n", "Ga terug\n");
+                        int screen_Admin_Accounts = Options.listOfChoice(true, title + s, "Account verwijderen\n", "Werknemer account registeren\n", "Ga terug\n");
                         if (screen_Admin_Accounts == -1 || screen_Admin_Accounts == 2) // kiest esc of ga terug
                         {
                             break;
@@ -574,6 +574,7 @@ Welkom gast!" + "\n";
                             int screen_Account_Verwijderen = Options.listOfChoice(true, title + s, "Verwijder account\n", "Ga terug\n");
                             if (screen_Account_Verwijderen == -1 || screen_Account_Verwijderen == 1) // esc of ga terug
                             {
+                                s = "";
                                 continue;
                             }
                             else // verwijder
@@ -583,6 +584,7 @@ Welkom gast!" + "\n";
                                 int idToDelete = int.Parse(Console.ReadLine());
                                 if (idToDelete == 0) // annuleer
                                 {
+                                    s = "";
                                     continue;
                                 }
                                 else
@@ -650,7 +652,7 @@ Telefoon: 010 123 4567" + "\n";
                 }
             }
         }
-        public static void MijnInformatie(int id, string nameOfUser)
+        public static void MijnReserveringen(int id, string nameOfUser)
         {
             string fileNameReserveren = "OpenSlotsReserveren.json";
             var jsonString = File.ReadAllText(fileNameReserveren); // json met alle datums openen
@@ -659,12 +661,12 @@ Telefoon: 010 123 4567" + "\n";
             var jsonConfirmString = File.ReadAllText(fileNameConfirm);
             var existConfirm = JsonSerializer.Deserialize<NewReservering>(jsonConfirmString)!;
             string title =
-@"███╗░░░███╗██╗░░░░░██╗███╗░░██╗  ██╗███╗░░██╗███████╗░█████╗░██████╗░███╗░░░███╗░█████╗░████████╗██╗███████╗
-████╗░████║██║░░░░░██║████╗░██║  ██║████╗░██║██╔════╝██╔══██╗██╔══██╗████╗░████║██╔══██╗╚══██╔══╝██║██╔════╝
-██╔████╔██║██║░░░░░██║██╔██╗██║  ██║██╔██╗██║█████╗░░██║░░██║██████╔╝██╔████╔██║███████║░░░██║░░░██║█████╗░░
-██║╚██╔╝██║██║██╗░░██║██║╚████║  ██║██║╚████║██╔══╝░░██║░░██║██╔══██╗██║╚██╔╝██║██╔══██║░░░██║░░░██║██╔══╝░░
-██║░╚═╝░██║██║╚█████╔╝██║░╚███║  ██║██║░╚███║██║░░░░░╚█████╔╝██║░░██║██║░╚═╝░██║██║░░██║░░░██║░░░██║███████╗
-╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚══╝  ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝╚══════╝" + "\n\n"; 
+@"███╗░░░███╗██╗░░░░░██╗███╗░░██╗  ██████╗░███████╗░██████╗███████╗██████╗░██╗░░░██╗███████╗██████╗░██╗███╗░░██╗░██████╗░███████╗███╗░░██╗
+████╗░████║██║░░░░░██║████╗░██║  ██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗██║░░░██║██╔════╝██╔══██╗██║████╗░██║██╔════╝░██╔════╝████╗░██║
+██╔████╔██║██║░░░░░██║██╔██╗██║  ██████╔╝█████╗░░╚█████╗░█████╗░░██████╔╝╚██╗░██╔╝█████╗░░██████╔╝██║██╔██╗██║██║░░██╗░█████╗░░██╔██╗██║
+██║╚██╔╝██║██║██╗░░██║██║╚████║  ██╔══██╗██╔══╝░░░╚═══██╗██╔══╝░░██╔══██╗░╚████╔╝░██╔══╝░░██╔══██╗██║██║╚████║██║░░╚██╗██╔══╝░░██║╚████║
+██║░╚═╝░██║██║╚█████╔╝██║░╚███║  ██║░░██║███████╗██████╔╝███████╗██║░░██║░░╚██╔╝░░███████╗██║░░██║██║██║░╚███║╚██████╔╝███████╗██║░╚███║
+╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚══╝  ╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚═════╝░╚══════╝╚═╝░░╚══╝" + "\n\n"; 
             string boxOfInstructies =
 @"╔════════════════════════════════════════════════════════════════╗
 ║ Navigeer de applicatie door middel van de pijltjestoetsen.     ║
@@ -685,7 +687,7 @@ Telefoon: 010 123 4567" + "\n";
                     {
                         alleReserveringen += $"\tNaam: {tmpSmallVariable[i].naamReservering}, Datum: {tmpSmallVariable[i].datumReservering}, Tijd: {tmpSmallVariable[i].tijdReservering}, Aantal gasten: {tmpSmallVariable[i].gastenReservering}, Bevestigingcode: {tmpSmallVariable[i].bevestigingCode}\n";
                     }
-                    int screenMijnInformatie = Options.listOfChoice(true, title + boxOfInstructies + s + alleReserveringen, "Afbreken een reservering\n", "Ga terug\n");
+                    int screenMijnInformatie = Options.listOfChoice(true, title + boxOfInstructies + s + alleReserveringen, "Annuleer een reservering\n", "Ga terug\n");
                     if (screenMijnInformatie == -1 || screenMijnInformatie == 1) // escape of Ga terug
                     {
                         mijnInfoLoop = false;
