@@ -580,7 +580,7 @@ Welkom gast!" + "\n";
                             else // verwijder
                             {
                                 Console.Clear();
-                                Console.WriteLine(title + "Voer in de ID van de account dat u wilt verwijderen. Voer in 0 om te annuleren.");
+                                Console.WriteLine(title + s + "\nVoer in de ID van de account dat u wilt verwijderen. Voer in 0 om te annuleren.");
                                 int idToDelete = int.Parse(Console.ReadLine());
                                 if (idToDelete == 0) // annuleer
                                 {
@@ -596,6 +596,7 @@ Welkom gast!" + "\n";
                                         existAccount.Accounts.RemoveAt(indexOfUser);
                                         jsonString = JsonSerializer.Serialize(existAccount);//Saved naar json file
                                         File.WriteAllText(fileNameAccounts, jsonString);
+                                        s = "";
                                     }
                                 }
 

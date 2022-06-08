@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Min En\\source\\repos\\projectBGroep3\\projectBGroep3\\projectBGroep3.csproj",
+      "projectUniqueName": "C:\\Users\\Min En\\Desktop\\INF1(klas)-teamX-ConsoleApplicationName\\Team\\Products\\Console Application\\Working project + Code\\projectBGroep3\\projectBGroep3\\projectBGroep3.csproj",
       "projectName": "projectBGroep3",
-      "projectPath": "C:\\Users\\Min En\\source\\repos\\projectBGroep3\\projectBGroep3\\projectBGroep3.csproj",
+      "projectPath": "C:\\Users\\Min En\\Desktop\\INF1(klas)-teamX-ConsoleApplicationName\\Team\\Products\\Console Application\\Working project + Code\\projectBGroep3\\projectBGroep3\\projectBGroep3.csproj",
       "packagesPath": "C:\\Users\\Min En\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Min En\\source\\repos\\projectBGroep3\\projectBGroep3\\obj\\",
+      "outputPath": "C:\\Users\\Min En\\Desktop\\INF1(klas)-teamX-ConsoleApplicationName\\Team\\Products\\Console Application\\Working project + Code\\projectBGroep3\\projectBGroep3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Min En\\AppData\\Roaming\\NuGet\\NuGet.Config",
